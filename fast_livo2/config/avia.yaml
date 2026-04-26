@@ -1,22 +1,27 @@
 /**:
   ros__parameters:
     common:
-      img_topic: "/left_camera/image"
-      lid_topic: "/livox/lidar"
-      imu_topic: "/livox/imu"
+      img_topic: "/camera/image"
+      lid_topic: "/lidar/points"
+      imu_topic: "/imu/data"
       img_en: 1
       lidar_en: 1
       ros_driver_bug_fix: false
 
     extrin_calib:
-      extrinsic_T: [0.04165, 0.02326, -0.0284]
+      # LiDAR ↔ IMU: co-located in our sim, both at vehicle frame origin
+      extrinsic_T: [0.0, 0.0, 0.0]
       extrinsic_R: [1.0, 0.0, 0.0,
                     0.0, 1.0, 0.0,
                     0.0, 0.0, 1.0]
-      Rcl: [0.00610193,-0.999863,-0.0154172,
-            -0.00615449,0.0153796,-0.999863,
-            0.999962,0.00619598,-0.0060598] 
-      Pcl: [0.0194384, 0.104689,-0.0251952]
+      # Camera ↔ LiDAR: camera @ (0.4, 0, 0.15) in base_link, lidar @ (0, 0, 0.25).
+      # Rcl rotates LiDAR-body axes (X-fwd Y-left Z-up) into camera-optical (X-right Y-down Z-fwd)
+      Rcl: [ 0.0, -1.0,  0.0,
+             0.0,  0.0, -1.0,
+             1.0,  0.0,  0.0]
+      # Pcl: camera position in LiDAR frame expressed in camera-optical axes
+      # delta(base_link) = (0.4, 0, -0.10) → (X_cam, Y_cam, Z_cam) = (0, 0.10, 0.40)
+      Pcl: [0.0, 0.10, 0.40]
 
     time_offset: 
       imu_time_offset: 0.0
@@ -26,8 +31,8 @@
     preprocess:
       point_filter_num: 1
       filter_size_surf: 0.1
-      lidar_type: 1 # Livox Avia LiDAR
-      scan_line: 6
+      lidar_type: 2 # VELO32 — standard PointCloud2 from Gazebo
+      scan_line: 32
       blind: 0.8
 
     vio:
