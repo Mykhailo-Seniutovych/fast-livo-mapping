@@ -1,2 +1,4 @@
 .idea
 cmake-build-debug
+PX4-Autopilot/
+forest_drive/

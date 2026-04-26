@@ -6,6 +6,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     sudo \
     curl \
     gnupg \
+    git \
     lsb-release \
     mesa-utils \
     libgl1-mesa-dri \
@@ -27,6 +28,19 @@ RUN groupadd --gid 1000 ubuntu \
 
 USER ubuntu
 WORKDIR /home/ubuntu
+
+# PX4's setup script installs tools to ~/.local/bin via pip; PX4's make calls
+# kconfig/nunavut from there, so ensure it's on PATH for all shells.
+ENV PATH=/home/ubuntu/.local/bin:$PATH
+
+# Install PX4 build dependencies. We clone PX4-Autopilot to /tmp purely to run
+# its setup script (which only installs apt + pip packages and is idempotent),
+# then remove the source. Users bind-mount their own host clone at runtime,
+# so build artifacts persist across container restarts.
+RUN git clone --depth 1 https://github.com/PX4/PX4-Autopilot.git /tmp/px4-setup \
+ && bash /tmp/px4-setup/Tools/setup/ubuntu.sh --no-nuttx --no-sim-tools \
+ && rm -rf /tmp/px4-setup \
+ && sudo rm -rf /var/lib/apt/lists/*
 
 RUN echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
 
