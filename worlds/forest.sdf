@@ -265,7 +265,7 @@
 
     <model name="vehicle">
       <self_collide>true</self_collide>
-      <pose>0 0 0 0 0 0.7854</pose>
+      <pose>4.0 0 0 0 0 1.1</pose>
       <include merge="true">
         <uri>model://rover_ackermann</uri>
       </include>
