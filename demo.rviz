@@ -1,11 +1,12 @@
 Panels:
   - Class: rviz_common/Displays
-    Help Height: 138
+    Help Height: 249
     Name: Displays
     Property Tree Widget:
-      Expanded: ~
+      Expanded:
+        - /Image1
       Splitter Ratio: 0.5
-    Tree Height: 849
+    Tree Height: 186
   - Class: rviz_common/Views
     Expanded:
       - /Current View1
@@ -41,13 +42,19 @@ Visualization Manager:
         All Enabled: true
         vehicle:
           Value: true
-        vehicle/caster:
-          Value: true
-        vehicle/left_wheel:
-          Value: true
         vehicle/odom:
           Value: true
-        vehicle/right_wheel:
+        vehicle/wheel_front_left_link:
+          Value: true
+        vehicle/wheel_front_left_steering_link:
+          Value: true
+        vehicle/wheel_front_right_link:
+          Value: true
+        vehicle/wheel_front_right_steering_link:
+          Value: true
+        vehicle/wheel_rear_left_link:
+          Value: true
+        vehicle/wheel_rear_right_link:
           Value: true
       Marker Scale: 1
       Name: TF
@@ -57,11 +64,17 @@ Visualization Manager:
       Tree:
         vehicle/odom:
           vehicle:
-            vehicle/caster:
+            vehicle/wheel_front_left_link:
               {}
-            vehicle/left_wheel:
+            vehicle/wheel_front_left_steering_link:
               {}
-            vehicle/right_wheel:
+            vehicle/wheel_front_right_link:
+              {}
+            vehicle/wheel_front_right_steering_link:
+              {}
+            vehicle/wheel_rear_left_link:
+              {}
+            vehicle/wheel_rear_right_link:
               {}
       Update Interval: 0
       Value: true
@@ -104,6 +117,20 @@ Visualization Manager:
         Reliability Policy: Reliable
         Value: /odom
       Value: true
+    - Class: rviz_default_plugins/Image
+      Enabled: true
+      Max Value: 1
+      Median window: 5
+      Min Value: 0
+      Name: Image
+      Normalize Range: true
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /camera/image
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -120,25 +147,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/ThirdPersonFollower
-      Distance: 10
+      Distance: 10.72309398651123
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0
-        Y: 0
+        X: 0.5013697743415833
+        Y: 1.417244553565979
         Z: 0
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.7853981852531433
+      Pitch: 1.0597968101501465
       Target Frame: vehicle
       Value: ThirdPersonFollower (rviz_default_plugins)
-      Yaw: 0.7853981852531433
+      Yaw: 1.0953984260559082
     Saved: ~
 Window Geometry:
   Displays:
@@ -146,9 +173,11 @@ Window Geometry:
   Height: 2086
   Hide Left Dock: false
   Hide Right Dock: false
-  QMainWindow State: 000000ff00000000fd0000000100000000000002d800000794fc0200000002fb000000100044006900730070006c00610079007301000000690000043f0000017800fffffffb0000000a0056006900650077007301000004b4000003490000012300ffffff00000c1c0000079400000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  Image:
+    collapsed: false
+  QMainWindow State: 000000ff00000000fd00000001000000000000038d00000794fc0200000003fb000000100044006900730070006c0061007900730100000069000002170000017800fffffffb0000000a00560069006500770073010000028c0000015a0000012300fffffffb0000000a0049006d00610067006501000003f20000040b0000002100ffffff00000b670000079400000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
   Views:
     collapsed: false
   Width: 3840
   X: 2560
-  Y: 926
+  Y: 881
