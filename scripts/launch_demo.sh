@@ -1,24 +1,23 @@
 #!/usr/bin/env bash
+# One-shot launch: PX4 SITL + bridge + rviz, all in this terminal.
+#
+# PX4 (foreground) brings up Gazebo and drops to the pxh> prompt for direct
+# autopilot interaction. Bridge and rviz run in the background with logs at
+# /tmp/bridge.log and /tmp/rviz.log. Exit pxh (or Ctrl-C) cleans up everything.
 set -e
 source /opt/ros/humble/setup.bash
 
-# Tell Gazebo where to find our local models (so model:// URIs resolve)
-export GZ_SIM_RESOURCE_PATH=/workspace/models:$GZ_SIM_RESOURCE_PATH
+export PX4_GZ_WORLD=forest
 
-# Cleanup background processes on exit
 trap 'kill $(jobs -p) 2>/dev/null' EXIT
 
-# 1. Gazebo with the forest world + diff-drive vehicle
-gz sim -r /workspace/worlds/forest.sdf &
-#sleep 3
-
-# 2. The bridge — translates between Gazebo and ROS2 pub/sub
 ros2 run ros_gz_bridge parameter_bridge \
-    --ros-args -p config_file:=/workspace/bridge.yaml &
-sleep 2
-#
-# 3. rviz2 — uses sim time so timestamps line up with Gazebo
-rviz2 -d /workspace/demo.rviz --ros-args -p use_sim_time:=true &
-#rviz2 --ros-args -p use_sim_time:=true &
+    --ros-args -p config_file:=/workspace/bridge_px4.yaml \
+    > /tmp/bridge.log 2>&1 &
 
-wait
+sleep 1
+rviz2 -d /workspace/demo.rviz --ros-args -p use_sim_time:=true \
+    > /tmp/rviz.log 2>&1 &
+
+cd /home/ubuntu/PX4-Autopilot
+exec make px4_sitl gz_rover_ackermann

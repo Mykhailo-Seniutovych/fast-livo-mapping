@@ -1,0 +1,33 @@
+# Bridge config for the PX4 SITL workflow.
+#
+# Model name "rover_ackermann_0" comes from PX4-rc.gzsim:111 which spawns
+# as ${MODEL_NAME}_${px4_instance}, where MODEL_NAME=rover_ackermann and
+# px4_instance defaults to 0.
+#
+# Use with `PX4_GZ_WORLD=forest make px4_sitl gz_rover_ackermann`.
+#
+# Driving comes from PX4 (via QGC missions) — no /cmd_vel bridge needed.
+
+- ros_topic_name: "/clock"
+  gz_topic_name: "/clock"
+  ros_type_name: "rosgraph_msgs/msg/Clock"
+  gz_type_name: "gz.msgs.Clock"
+  direction: GZ_TO_ROS
+
+- ros_topic_name: "/imu/data"
+  gz_topic_name: "/world/forest/model/rover_ackermann_0/link/base_link/sensor/imu_sensor/imu"
+  ros_type_name: "sensor_msgs/msg/Imu"
+  gz_type_name: "gz.msgs.IMU"
+  direction: GZ_TO_ROS
+
+- ros_topic_name: "/camera/image"
+  gz_topic_name: "/world/forest/model/rover_ackermann_0/link/base_link/sensor/camera/image"
+  ros_type_name: "sensor_msgs/msg/Image"
+  gz_type_name: "gz.msgs.Image"
+  direction: GZ_TO_ROS
+
+- ros_topic_name: "/lidar/points"
+  gz_topic_name: "/world/forest/model/rover_ackermann_0/link/base_link/sensor/lidar/scan/points"
+  ros_type_name: "sensor_msgs/msg/PointCloud2"
+  gz_type_name: "gz.msgs.PointCloudPacked"
+  direction: GZ_TO_ROS
