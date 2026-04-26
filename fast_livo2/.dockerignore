@@ -1,0 +1,11 @@
+.git
+.idea
+cmake-build-*
+build
+install
+log
+Log
+**/__pycache__
+*.bag
+*.db3
+*.mcap
