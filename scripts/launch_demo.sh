@@ -2,12 +2,14 @@
 set -e
 source /opt/ros/jazzy/setup.bash
 
+# Tell Gazebo where to find our local models (so model:// URIs resolve)
+export GZ_SIM_RESOURCE_PATH=/workspace/models:$GZ_SIM_RESOURCE_PATH
+
 # Cleanup background processes on exit
 trap 'kill $(jobs -p) 2>/dev/null' EXIT
 
-# 1. Gazebo with a built-in demo world that has a vehicle + lidar
-#    diff_drive.sdf ships with ros_gz_sim demos
-gz sim -r /opt/ros/jazzy/share/ros_gz_sim_demos/worlds/vehicle.sdf &
+# 1. Gazebo with the forest world + diff-drive vehicle
+gz sim -r /workspace/worlds/forest.sdf &
 #sleep 3
 
 # 2. The bridge — translates between Gazebo and ROS2 pub/sub
