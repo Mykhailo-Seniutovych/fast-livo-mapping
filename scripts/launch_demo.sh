@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -e
-source /opt/ros/jazzy/setup.bash
+source /opt/ros/humble/setup.bash
 
 # Tell Gazebo where to find our local models (so model:// URIs resolve)
 export GZ_SIM_RESOURCE_PATH=/workspace/models:$GZ_SIM_RESOURCE_PATH
