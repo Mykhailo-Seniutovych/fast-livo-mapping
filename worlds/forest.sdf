@@ -257,22 +257,22 @@
 
     <model name="vehicle">
       <self_collide>true</self_collide>
-      <pose>0 0 0 0 0 0</pose>
+      <pose>0 0 0 0 0 0.7854</pose>
       <include merge="true">
-        <uri>model://rover_differential</uri>
+        <uri>model://rover_ackermann</uri>
       </include>
 
       <plugin
-        filename="gz-sim-diff-drive-system"
-        name="gz::sim::systems::DiffDrive">
+        filename="gz-sim-ackermann-steering-system"
+        name="gz::sim::systems::AckermannSteering">
         <left_joint>wheel_rear_left_joint</left_joint>
         <right_joint>wheel_rear_right_joint</right_joint>
-        <wheel_separation>0.6</wheel_separation>
+        <left_steering_joint>wheel_front_left_steering_joint</left_steering_joint>
+        <right_steering_joint>wheel_front_right_steering_joint</right_steering_joint>
+        <kingpin_width>0.6</kingpin_width>
+        <wheel_base>0.5</wheel_base>
+        <steering_limit>0.5236</steering_limit>
         <wheel_radius>0.1</wheel_radius>
-        <max_linear_velocity>2.0</max_linear_velocity>
-        <min_linear_velocity>-2.0</min_linear_velocity>
-        <max_angular_velocity>2.0</max_angular_velocity>
-        <min_angular_velocity>-2.0</min_angular_velocity>
       </plugin>
 
       <plugin
