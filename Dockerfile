@@ -29,18 +29,23 @@ RUN groupadd --gid 1000 ubuntu \
 USER ubuntu
 WORKDIR /home/ubuntu
 
-# PX4's setup script installs tools to ~/.local/bin via pip; PX4's make calls
-# kconfig/nunavut from there, so ensure it's on PATH for all shells.
+# Add ~/.local/bin to PATH so pip-installed scripts (kconfig, nunavut, …) are
+# findable when PX4's `make` invokes them.
 ENV PATH=/home/ubuntu/.local/bin:$PATH
 
-# Install PX4 build dependencies. We clone PX4-Autopilot to /tmp purely to run
-# its setup script (which only installs apt + pip packages and is idempotent),
-# then remove the source. Users bind-mount their own host clone at runtime,
-# so build artifacts persist across container restarts.
-RUN git clone --depth 1 https://github.com/PX4/PX4-Autopilot.git /tmp/px4-setup \
- && bash /tmp/px4-setup/Tools/setup/ubuntu.sh --no-nuttx --no-sim-tools \
- && rm -rf /tmp/px4-setup \
+# Clone PX4-Autopilot into the image and run its own setup script for build
+# deps (apt + pip). --no-nuttx skips the embedded toolchain we don't need;
+# --no-sim-tools skips Gazebo install (we already have Harmonic above).
+RUN git clone --recursive https://github.com/PX4/PX4-Autopilot.git /home/ubuntu/PX4-Autopilot \
+ && bash /home/ubuntu/PX4-Autopilot/Tools/setup/ubuntu.sh --no-nuttx --no-sim-tools \
  && sudo rm -rf /var/lib/apt/lists/*
+
+# Apply our overrides (camera + lidar on rover, ground plane in forest world).
+# COPY happens late so editing px4_overrides/ doesn't invalidate the heavy
+# upstream apt/pip layers above — only the small override layer rebuilds.
+COPY --chown=ubuntu:ubuntu px4_overrides/ /home/ubuntu/px4_overrides_staging/
+RUN cp -r /home/ubuntu/px4_overrides_staging/. /home/ubuntu/PX4-Autopilot/ \
+ && rm -rf /home/ubuntu/px4_overrides_staging
 
 RUN echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
 
