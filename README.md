@@ -36,5 +36,5 @@ to integrate everything together and make it functional. There are some issues:
 * fast_livo2 is just a folder that was copied from a github project. In real setting I would consider making it a submodule.
 * PX4 is cloned and built directly in the Dockerfile, so it's not even visible in the project structure, in real settings I would consider making it a submodule too.
 * launch_demo.sh compiles PX4 libs, in real settings I would put it in a separate build/compilation script. 
-* A lot of code was generated using AI tools to speed up the assignment completion. The scripts would need some cleanup and a better structure (e.g. Dockerfile).
+* A lot of code was generated using AI tools to speed up the assignment completion. The scripts would need some cleanup, a better structure, remove unnecessary dependencies etc. (e.g. Dockerfile).
 
