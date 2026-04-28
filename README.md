@@ -30,7 +30,7 @@ To run the project locally execute the following steps:
 # DEMO
 __Checkout the [Demo Video](https://drive.google.com/file/d/1_tn7miBXMDTaBsQcF5r-_LQeAzhGwM8L/view?usp=sharing) of how I run this project locally__
 
-# Note
+# Important Note
 This is not a production ready solution. The project was developed quickly in a little over one day just 
 to integrate everything together and make it functional. There are some issues:
 * fast_livo2 is just a folder that was copied from a github project. In real setting I would consider making it a submodule.
