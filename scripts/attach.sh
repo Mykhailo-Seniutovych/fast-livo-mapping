@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-docker exec -it ros2-test bash
+docker exec -it fast_livo_mapping bash

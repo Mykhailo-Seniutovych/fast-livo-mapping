@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-docker build -t ros2-test .
+docker build -t fast_livo_mapping .

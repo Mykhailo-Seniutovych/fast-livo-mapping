@@ -12,7 +12,7 @@ if [[ -d "$(pwd)/PX4-Autopilot" ]]; then
 fi
 
 docker run -it --rm \
-    --name ros2-test \
+    --name fast_livo_mapping \
     --network=host \
     --ipc=host \
     --gpus all \
@@ -26,7 +26,8 @@ docker run -it --rm \
     -e __GLX_VENDOR_LIBRARY_NAME=nvidia \
     -v /tmp/.X11-unix:/tmp/.X11-unix:rw \
     -v $(pwd):/workspace:rw \
+    -v $(pwd)/fast_livo2/config:/home/ubuntu/livo_ws/src/FAST-LIVO2/config:ro \
     "${PX4_MOUNT[@]}" \
     --device /dev/dri \
     -w /workspace \
-    ros2-test
+    fast_livo_mapping
