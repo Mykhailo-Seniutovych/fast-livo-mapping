@@ -28,7 +28,7 @@ To run the project locally execute the following steps:
 * See the map being built in real time
 
 # DEMO
-__Checkout the [Demo Video](https://drive.google.com/file/d/1_tn7miBXMDTaBsQcF5r-_LQeAzhGwM8L/view?usp=sharing)of how I run this project locally__
+__Checkout the [Demo Video](https://drive.google.com/file/d/1_tn7miBXMDTaBsQcF5r-_LQeAzhGwM8L/view?usp=sharing) of how I run this project locally__
 
 # Note
 This is not a production ready solution. The project was developed quickly in a little over one day just 
