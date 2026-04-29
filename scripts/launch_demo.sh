@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# One-shot launch: PX4 SITL + Gazebo + ros_gz bridge + FAST-LIVO2 (with its own rviz).
+# PX4 SITL + Gazebo + ros_gz bridge + FAST-LIVO2 (with its own rviz).
 set -e
 source /opt/ros/humble/setup.bash
 source /home/ubuntu/livo_ws/install/setup.bash
